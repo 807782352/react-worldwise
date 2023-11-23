@@ -1,8 +1,10 @@
+import PageNav from "../../components/PageNav";
 import "../Product/index.css";
 
 export default function Pricing() {
   return (
     <main className="product">
+      <PageNav />
       <section>
         <div>
           <h2>
