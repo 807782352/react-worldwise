@@ -1,4 +1,4 @@
-import "./index.css";
+import styles from "./index.module.css";
 
 export default function City() {
  return (
