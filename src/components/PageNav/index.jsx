@@ -4,7 +4,7 @@ import "./index.css";
 
 export default function PageNav() {
   return (
-    <nav className="nav">
+    <nav className="page-nav">
       <Logo />
 
       <ul>

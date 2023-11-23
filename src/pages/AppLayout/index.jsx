@@ -1,11 +1,12 @@
-import AppNav from "../../components/AppNav" 
-import "./index.css"
+import Sidebar from "../../components/Sidebar";
+import Map from "../../components/Map";
+import "./index.css";
 
 export default function AppLayout() {
   return (
-    <div>
-        <AppNav />
-        <p>App</p>
+    <div className="app">
+      <Sidebar />
+      <Map />
     </div>
-  )
+  );
 }
