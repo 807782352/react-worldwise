@@ -13,8 +13,8 @@ export default function CityList({ cities, isLoading }) {
     return <Message message={msg} />;
   }
 
-  console.log(isLoading);
-  console.log(cities);
+  // console.log(isLoading);
+  // console.log(cities);
 
   return (
     <ul className={styles.cityList}>
