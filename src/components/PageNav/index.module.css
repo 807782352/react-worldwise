@@ -21,7 +21,7 @@
 }
 
 /* CSS Modules feature */
-.nav ul .active {
+.nav a:global(.active) {
   color: var(--color-brand--2);
 }
 

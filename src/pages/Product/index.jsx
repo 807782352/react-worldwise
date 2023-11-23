@@ -1,9 +1,9 @@
 import PageNav from "../../components/PageNav";
-import "./index.css";
+import styles from  "./index.module.css";
 
 export default function Product() {
   return (
-    <main className="product">
+    <main className={styles.product}>
       <PageNav />
       <section>
         <img

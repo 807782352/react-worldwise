@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import "./index.css";
+import styles from "./index.module.css";
 
 export default function Logo() {
   return (
     <Link to="/">
-      <img src="/logo.png" alt="WorldWise logo" className="logo" />
+      <img src="/logo.png" alt="WorldWise logo" className={styles.logo} />
     </Link>
   );
 }

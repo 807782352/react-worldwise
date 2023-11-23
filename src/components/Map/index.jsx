@@ -1,5 +1,5 @@
-import "./index.css";
+import styles from "./index.module.css";
 
 export default function Map() {
-  return <div className="mapContainer">Map</div>;
+  return <div className={styles.mapContainer}>Map</div>;
 }

@@ -1,9 +1,9 @@
-import "./index.css";
+import styles from  "./index.module.css";
 
 export default function Footer() {
   return (
-    <footer className="footer">
-      <p className="copyright">
+    <footer className={styles.footer}>
+      <p className={styles.copyright}>
         &copy; Copyright {new Date().getFullYear()} by Ziyi Xu
       </p>
     </footer>

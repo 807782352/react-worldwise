@@ -1,9 +1,9 @@
 import PageNav from "../../components/PageNav";
-import "../Product/index.css";
+import styles from "../Product/index.module.css";
 
 export default function Pricing() {
   return (
-    <main className="product">
+    <main className={styles.product}>
       <PageNav />
       <section>
         <div>
