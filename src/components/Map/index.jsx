@@ -1,11 +1,11 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
 import styles from "./index.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCities } from "../../contexts/CityContext";
 
 let DefaultIcon = L.icon({
@@ -16,20 +16,28 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 export default function Map() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const [mapPosition, setMapPosition] = useState([51.505, -0.09]);
 
   const { cities } = useCities();
 
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
+  const mapLat = searchParams.get("lat");
+  const mapLng = searchParams.get("lng");
+
+  // keep current map position (sync magnisim tool)
+  useEffect(
+    function () {
+      if (mapLat && mapLng) setMapPosition([mapLat, mapLng]);
+    },
+    [mapLat, mapLng]
+  );
 
   return (
     <div className={styles.mapContainer}>
       <MapContainer
         center={mapPosition}
-        zoom={13}
+        zoom={6}
         scrollWheelZoom={true}
         className={styles.map}
       >
@@ -48,7 +56,17 @@ export default function Map() {
             </Popup>
           </Marker>
         ))}
+        <ChangePosition position={mapPosition} />
       </MapContainer>
     </div>
   );
+}
+
+function ChangePosition({ position }) {
+  console.log(position);
+  const map = useMap();
+  map.setView(position);
+
+  // No need UI view, then return null
+  return null;
 }
