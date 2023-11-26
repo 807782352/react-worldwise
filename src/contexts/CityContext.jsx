@@ -40,8 +40,35 @@ function CityProvider({ children }) {
     }
   }
 
+  async function createCity(newCity) {
+    try {
+      setIsLoading(true);
+      // POST request
+      const res = await fetch(`${BASE_URL}/cities`, {
+        method: "POST",
+        body: JSON.stringify(newCity),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await res.json();
+      console.log(data);
+
+      // sync by rerendering
+      // works on small project, but there is a better way to do it as well
+      setCities((cities) => [...cities, data])
+    } catch {
+      alert("There was an error loading data");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
-    <CityContext.Provider value={{ cities, isLoading, currentCity, getCity }}>
+    <CityContext.Provider
+      value={{ cities, isLoading, currentCity, getCity, createCity }}
+    >
       {children}
     </CityContext.Provider>
   );
