@@ -15,6 +15,7 @@ import styles from "./index.module.css";
 import { useEffect, useState } from "react";
 import { useCities } from "../../contexts/CityContext";
 import { useGeolocation } from "../../hooks/useGeolocation";
+import {useUrlPosition} from "../../hooks/useUrlPosition";
 import Button from "../Button";
 
 let DefaultIcon = L.icon({
@@ -25,14 +26,11 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 export default function WorldMap() {
-  const [searchParams] = useSearchParams();
-
   const [mapPosition, setMapPosition] = useState([51.505, -0.09]);
 
   const { cities } = useCities();
 
-  const mapLat = searchParams.get("lat");
-  const mapLng = searchParams.get("lng");
+  const [mapLat, mapLng] = useUrlPosition();
 
   const {
     isLoading,
@@ -67,7 +65,7 @@ export default function WorldMap() {
           {isLoading ? "isLoading" : "Use your position"}
         </Button>
       )}
-      
+
       <MapContainer
         center={mapPosition}
         zoom={6}
