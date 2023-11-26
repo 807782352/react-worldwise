@@ -15,7 +15,7 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-export default function Map() {
+export default function WorldMap() {
   const [searchParams] = useSearchParams();
 
   const [mapPosition, setMapPosition] = useState([51.505, -0.09]);
@@ -57,6 +57,7 @@ export default function Map() {
           </Marker>
         ))}
         <ChangePosition position={mapPosition} />
+        
       </MapContainer>
     </div>
   );
@@ -70,3 +71,10 @@ function ChangePosition({ position }) {
   // No need UI view, then return null
   return null;
 }
+
+function DetectClick(){
+  const navigate = useNavigate();
+
+  
+}
+
