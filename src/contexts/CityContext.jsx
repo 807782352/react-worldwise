@@ -1,3 +1,4 @@
+// All cities operations are written here ...
 import { createContext, useContext, useEffect, useState } from "react";
 
 import axios from "axios";
@@ -74,9 +75,33 @@ function CityProvider({ children }) {
     }
   }
 
+  async function deleteCity(id) {
+    try {
+      setIsLoading(true);
+
+      const res = await axios.delete(`${BASE_URL}/cities/${id}`);
+
+      console.log(res.data);
+      const data = res.data;
+
+      setCities((cities) => cities.filter((city) => city.id !== id));
+    } catch {
+      alert("There was an error loading data");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <CityContext.Provider
-      value={{ cities, isLoading, currentCity, getCity, createCity }}
+      value={{
+        cities,
+        isLoading,
+        currentCity,
+        getCity,
+        createCity,
+        deleteCity,
+      }}
     >
       {children}
     </CityContext.Provider>

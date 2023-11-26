@@ -11,7 +11,7 @@ const formatDate = (dateStr) => {
 };
 
 export default function CityItem({ city }) {
-  const { currentCity } = useCities();
+  const { currentCity, deleteCity } = useCities();
 
   const {
     cityName,
@@ -21,6 +21,11 @@ export default function CityItem({ city }) {
     id,
     position: { lat, lng },
   } = city;
+
+  function handleClick(e) {
+    e.preventDefault();
+    deleteCity(id);
+  }
 
   return (
     <li>
@@ -33,7 +38,9 @@ export default function CityItem({ city }) {
         <img src={imgUrl} alt={country} />
         <h3 className={styles.name}>{cityName}</h3>
         <time className={styles.date}>({formatDate(date)})</time>
-        <button className={styles.deleteBtn}>&times;</button>
+        <button className={styles.deleteBtn} onClick={handleClick}>
+          &times;
+        </button>
       </Link>
     </li>
   );
