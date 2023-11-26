@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
+import axios from "axios";
+
 const BASE_URL = "http://localhost:9000";
 
 const CityContext = createContext();
@@ -43,21 +45,28 @@ function CityProvider({ children }) {
   async function createCity(newCity) {
     try {
       setIsLoading(true);
+
       // POST request to the server (9000)
-      const res = await fetch(`${BASE_URL}/cities`, {
-        method: "POST",
-        body: JSON.stringify(newCity),
+      // const res = await fetch(`${BASE_URL}/cities`, {
+      //   method: "POST",
+      //   body: JSON.stringify(newCity),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+
+      const res = await axios.post(`${BASE_URL}/cities`, newCity, {
         headers: {
           "Content-Type": "application/json",
         },
       });
 
-      const data = await res.json();
-      console.log(data);
+      console.log(res.data);
+      const data = res.data;
 
       // sync by rerendering
       // works on small project, but there is a better way to do it as well
-      setCities((cities) => [...cities, data])
+      setCities((cities) => [...cities, data]);
     } catch {
       alert("There was an error loading data");
     } finally {

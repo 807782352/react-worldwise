@@ -103,6 +103,71 @@
         "lng": "117.43283268646393"
       },
       "id": 98443202
+    },
+    {
+      "cityName": "Tempsford",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "countryCode": "GB",
+      "imgUrl": "https://flagsapi.com/GB/flat/32.png",
+      "date": "2023-11-26T23:14:33.080Z",
+      "notes": "",
+      "position": {
+        "lat": "52.173640621286374",
+        "lng": "-0.29662721929768043"
+      },
+      "id": 98443203
+    },
+    {
+      "cityName": "Bradfield",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "countryCode": "GB",
+      "imgUrl": "https://flagsapi.com/GB/flat/32.png",
+      "date": "2023-11-26T23:16:12.914Z",
+      "notes": "",
+      "position": {
+        "lat": "51.45742980658968",
+        "lng": "-1.0931396484375002"
+      },
+      "id": 98443204
+    },
+    {
+      "cityName": "Ramsbury",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "countryCode": "GB",
+      "imgUrl": "https://flagsapi.com/GB/flat/32.png",
+      "date": "2023-11-26T23:16:36.464Z",
+      "notes": "",
+      "position": {
+        "lat": "51.45400691005982",
+        "lng": "-1.6424560546875002"
+      },
+      "id": 98443205
+    },
+    {
+      "cityName": "Peschanovskiy",
+      "country": "Russian Federation (the)",
+      "countryCode": "RU",
+      "imgUrl": "https://flagsapi.com/RU/flat/32.png",
+      "date": "2023-11-26T23:17:27.050Z",
+      "notes": "",
+      "position": {
+        "lat": "49.296471602658094",
+        "lng": "42.31933593750001"
+      },
+      "id": 98443206
+    },
+    {
+      "cityName": "Zhelobovo",
+      "country": "Russian Federation (the)",
+      "countryCode": "RU",
+      "imgUrl": "https://flagsapi.com/RU/flat/32.png",
+      "date": "2023-11-26T23:17:48.962Z",
+      "notes": "",
+      "position": {
+        "lat": "53.66824184309847",
+        "lng": "40.78127682162245"
+      },
+      "id": 98443207
     }
   ]
 }
