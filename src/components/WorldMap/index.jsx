@@ -15,13 +15,19 @@ import styles from "./index.module.css";
 import { useEffect, useState } from "react";
 import { useCities } from "../../contexts/CityContext";
 import { useGeolocation } from "../../hooks/useGeolocation";
-import {useUrlPosition} from "../../hooks/useUrlPosition";
+import { useUrlPosition } from "../../hooks/useUrlPosition";
 import Button from "../Button";
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
 });
+
+// Set map bounds.
+// Allow scroll over the international date line, so users can comfortably zoom into locations near the date line.
+const corner1 = L.latLng(-90, -180);
+const corner2 = L.latLng(90, 180);
+const bounds = L.latLngBounds(corner1, corner2);
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
@@ -37,8 +43,6 @@ export default function WorldMap() {
     position: geoLocationPosition,
     getPosition,
   } = useGeolocation();
-
-  console.log(location);
 
   // keep current map position (sync magnisim tool)
   useEffect(
@@ -68,9 +72,11 @@ export default function WorldMap() {
 
       <MapContainer
         center={mapPosition}
-        zoom={6}
+        zoom={8}
         scrollWheelZoom={true}
         className={styles.map}
+        maxBounds={bounds}
+        maxBoundsViscosity="1.0"
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -109,8 +115,6 @@ function DetectClick() {
 
   useMapEvents({
     click(e) {
-      console.log(e);
-
       const {
         latlng: { lat, lng },
       } = e;
