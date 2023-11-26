@@ -1,5 +1,12 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMap,
+  useMapEvents,
+} from "react-leaflet";
 import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
@@ -7,6 +14,8 @@ import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import styles from "./index.module.css";
 import { useEffect, useState } from "react";
 import { useCities } from "../../contexts/CityContext";
+import { useGeolocation } from "../../hooks/useGeolocation";
+import Button from "../Button";
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -25,6 +34,14 @@ export default function WorldMap() {
   const mapLat = searchParams.get("lat");
   const mapLng = searchParams.get("lng");
 
+  const {
+    isLoading,
+    position: geoLocationPosition,
+    getPosition,
+  } = useGeolocation();
+
+  console.log(location);
+
   // keep current map position (sync magnisim tool)
   useEffect(
     function () {
@@ -33,8 +50,24 @@ export default function WorldMap() {
     [mapLat, mapLng]
   );
 
+  // get geo location from useGeolocation hook
+  useEffect(
+    function () {
+      if (geoLocationPosition) {
+        setMapPosition([geoLocationPosition.lat, geoLocationPosition.lng]);
+      }
+    },
+    [geoLocationPosition]
+  );
+
   return (
     <div className={styles.mapContainer}>
+      {!geoLocationPosition && (
+        <Button type="position" onClick={getPosition}>
+          {isLoading ? "isLoading" : "Use your position"}
+        </Button>
+      )}
+      
       <MapContainer
         center={mapPosition}
         zoom={6}
@@ -57,14 +90,13 @@ export default function WorldMap() {
           </Marker>
         ))}
         <ChangePosition position={mapPosition} />
-        
+        <DetectClick />
       </MapContainer>
     </div>
   );
 }
 
 function ChangePosition({ position }) {
-  console.log(position);
   const map = useMap();
   map.setView(position);
 
@@ -72,9 +104,20 @@ function ChangePosition({ position }) {
   return null;
 }
 
-function DetectClick(){
+function DetectClick() {
   const navigate = useNavigate();
 
-  
-}
+  // Click the map to show a marker at your detected location
 
+  useMapEvents({
+    click(e) {
+      console.log(e);
+
+      const {
+        latlng: { lat, lng },
+      } = e;
+
+      navigate(`form?lat=${lat}&lng=${lng}`);
+    },
+  });
+}
