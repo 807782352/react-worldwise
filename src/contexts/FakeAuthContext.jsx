@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
 
 const AuthContext = createContext();
 
@@ -11,7 +11,12 @@ const initState = {
 function reducer(state, action) {
   switch (action.type) {
     case "login":
-      return { ...state, user: action.payload, isAuthenticated: true };
+      return {
+        ...state,
+        user: action.payload,
+        isAuthenticated: true,
+        error: "",
+      };
     case "logout":
       return initState;
     case "loginError":
@@ -27,7 +32,8 @@ const FAKE_USER = {
   name: "Faker",
   email: "faker@example.com",
   password: "hideonbush",
-  avatar: "https://www.claviersouris.fr/wp-content/uploads/2022/10/62483ae709193b35ab993551_Faker.png",
+  avatar:
+    "https://www.claviersouris.fr/wp-content/uploads/2022/10/62483ae709193b35ab993551_Faker.png",
 };
 
 function AuthProvider({ children }) {
@@ -37,15 +43,19 @@ function AuthProvider({ children }) {
   );
 
   function login(email, password) {
-    // small bug in error hint
-    if (email !== FAKE_USER.email) {
-      dispatch({ type: "loginError", payload: "The email does not exist!" });
-    } else if (password !== FAKE_USER.password) {
+    if (password !== FAKE_USER.password) {
       dispatch({ type: "loginError", payload: "The password does not match!" });
     } else if (email === FAKE_USER.email && password === FAKE_USER.password) {
       dispatch({ type: "login", payload: FAKE_USER });
+    } else if (email !== FAKE_USER.email) {
+      dispatch({ type: "loginError", payload: "The email does not exist!" });
     }
   }
+
+  // fix the login hint lag bug
+  useEffect(() => {
+    if (error) alert(error);
+  }, [user, isAuthenticated, error]);
 
   function logout() {
     dispatch({ type: "logout" });

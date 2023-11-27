@@ -10,13 +10,13 @@ export default function Login() {
   const [email, setEmail] = useState("faker@example.com");
   const [password, setPassword] = useState("hideonbush");
 
-  const { error, isAuthenticated, login } = useAuth();
+  const { isAuthenticated, login } = useAuth();
 
   const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (error) alert(error);
+    
     if (email && password) login(email, password);
   }
 
