@@ -19,7 +19,7 @@ export default function HomePage() {
           of. Never forget your wonderful experiences, and show your friends how
           you have wandered the world.
         </h2>
-        <NavLink to="/app" className="cta">
+        <NavLink to="/login" className="cta">
           Start Tracking Now
         </NavLink>
       </section>
